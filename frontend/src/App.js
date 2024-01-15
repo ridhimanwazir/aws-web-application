@@ -1,6 +1,7 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { API, Storage } from 'aws-amplify';
+import { API } from 'aws-amplify/api';  // Update the import for API
 import './App.css';
 
 function App() {
