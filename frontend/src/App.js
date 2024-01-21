@@ -23,35 +23,68 @@ function App() {
   };
 
   const fetchTasks = async () => {
-    // You can fetch tasks from your middleware/backend here
-    // For simplicity, let's mock some tasks
-    setTasks([
-      { id: 1, text: 'Learn AWS Amplify', completed: false },
-      { id: 2, text: 'Build a React app', completed: true },
-    ]);
+    try {
+      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/to-do', {
+        headers: {
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+      });
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
   };
 
-  const addTask = () => {
-    // Implement the logic to add a task to the backend here
-    // For simplicity, let's update the state only
-    setTasks([...tasks, { id: tasks.length + 1, text: newTask, completed: false }]);
-    setNewTask('');
+  const addTask = async () => {
+    try {
+      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/to-do', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+        body: JSON.stringify({ text: newTask }),
+      });
+      const data = await response.json();
+      setTasks([...tasks, data]);
+      setNewTask('');
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
   };
 
-  const toggleTask = (taskId) => {
-    // Implement the logic to toggle task completion on the backend here
-    // For simplicity, let's update the state only
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
+  const toggleTask = async (taskId) => {
+    try {
+      const response = await fetch(`http://development222.us-east-1.elasticbeanstalk.com/to-do/${taskId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+        body: JSON.stringify({ completed: !tasks.find((task) => task.id === taskId).completed }),
+      });
+      const updatedTask = await response.json();
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task.id === taskId ? updatedTask : task))
+      );
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
   };
 
-  const deleteTask = (taskId) => {
-    // Implement the logic to delete a task from the backend here
-    // For simplicity, let's update the state only
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
+  const deleteTask = async (taskId) => {
+    try {
+      await fetch(`http://development222.us-east-1.elasticbeanstalk.com/to-do/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+      });
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   return (
@@ -92,4 +125,3 @@ function App() {
 }
 
 export default withAuthenticator(App);
-
