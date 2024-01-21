@@ -8,10 +8,12 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
-  useEffect(() => {
-    checkUser();
-    fetchTasks();
-  }, []);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
+  checkUser();
+  fetchTasks();
+}, [fetchTasks]);
+
 
   const checkUser = async () => {
     try {
