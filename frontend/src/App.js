@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { signIn } from 'aws-amplify/auth';
-import { currentAuthenticatedUser } from 'aws-amplify/auth';
 
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
 
   const checkUser = async () => {
     try {
-      const userData = await Auth.currentAuthenticatedUser();
+      const userData = await signIn.currentAuthenticatedUser();
       setUser(userData);
     } catch (err) {
       setUser(null);
