@@ -24,7 +24,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/to-do', {
+      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/todos/', {
         headers: {
           Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
         },
@@ -38,7 +38,7 @@ function App() {
 
   const addTask = async () => {
     try {
-      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/to-do', {
+      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ function App() {
 
   const toggleTask = async (taskId) => {
     try {
-      const response = await fetch(`http://development222.us-east-1.elasticbeanstalk.com/to-do/${taskId}`, {
+      const response = await fetch(`http://development222.us-east-1.elasticbeanstalk.com/todos/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ function App() {
 
   const deleteTask = async (taskId) => {
     try {
-      await fetch(`http://development222.us-east-1.elasticbeanstalk.com/to-do/${taskId}`, {
+      await fetch(`http://development222.us-east-1.elasticbeanstalk.com/todos/${taskId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
