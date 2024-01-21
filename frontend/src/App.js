@@ -26,32 +26,25 @@ function App() {
     }
   };
 
-  // useEffect hook to run code after the component mounts
   useEffect(() => {
-    // Function to check the current authenticated user
     const checkUser = async () => {
       try {
-        // Retrieve the current authenticated user from AWS Amplify
-        const userData = await signIn.currentAuthenticatedUser();
-        // Update the user state
+        const userData = await Auth.currentAuthenticatedUser();
         setUser(userData);
-        // Fetch tasks after user is authenticated
         fetchTasks();
       } catch (err) {
-        // If there's an error, set user state to null
         setUser(null);
       }
     };
-
-    // Call the checkUser function
+  
     checkUser();
-  }, []); // Empty dependency array ensures useEffect runs only once after component mount
+  }, [fetchTasks]);
 
   // Function to add a new task
   const addTask = async () => {
     try {
       // Make an API request to add a new task to the middleware
-      const response = await fetch('<Your_Elastic_Beanstalk_Middleware_URL>/todos', {
+      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +68,7 @@ function App() {
       // Find the task by ID in the tasks state
       const taskToUpdate = tasks.find((task) => task.id === taskId);
       // Make an API request to update the task's completion status
-      const response = await fetch(`<Your_Elastic_Beanstalk_Middleware_URL>/todos/${taskId}`, {
+      const response = await fetch(`http://development222.us-east-1.elasticbeanstalk.com/todos/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +88,7 @@ function App() {
   const deleteTask = async (taskId) => {
     try {
       // Make an API request to delete a task from the middleware
-      await fetch(`<Your_Elastic_Beanstalk_Middleware_URL>/todos/${taskId}`, {
+      await fetch(`http://development222.us-east-1.elasticbeanstalk.com/todos/${taskId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
