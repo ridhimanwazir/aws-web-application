@@ -1,0 +1,71 @@
+{
+  "auth": {
+    "frontend0d63d70c": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "frontend0d63d70cPreSignup",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "frontend0d63d70cPreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_frontend0d63d70cPreSignup_DOMAINDENYLIST": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "frontend0d63d70cPreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_frontend0d63d70cPreSignup_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "frontend0d63d70cPreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_frontend0d63d70cPreSignup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "frontend0d63d70cPreSignup"
+        }
+      ]
+    }
+  }
+}
