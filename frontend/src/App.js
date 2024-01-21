@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Auth } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import { signIn } from 'aws-amplify/auth';
+import { currentAuthenticatedUser } from 'aws-amplify/auth';
+
 
 function App() {
   const [user, setUser] = useState(null);
