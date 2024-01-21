@@ -13,7 +13,7 @@ function App() {
   const fetchTasks = async () => {
     try {
       // Make an API request to fetch tasks from the middleware
-      const response = await fetch('<Your_Elastic_Beanstalk_Middleware_URL>/todos', {
+      const response = await fetch('http://development222.us-east-1.elasticbeanstalk.com/todos', {
         headers: {
           Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
         },
@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const userData = await Auth.currentAuthenticatedUser();
+        const userData = await signIn.currentAuthenticatedUser();
         setUser(userData);
         fetchTasks();
       } catch (err) {
