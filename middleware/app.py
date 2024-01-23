@@ -29,6 +29,8 @@ def create_task():
         'title': data['title']
     }
     table.put_item(Item=new_task)
+    send_message_to_python_backend(new_task['title'])
+
     return jsonify({'message': 'Task created successfully'}), 201
 
 @app.route('/tasks/<string:task_id>', methods=['DELETE'])
@@ -40,7 +42,6 @@ def delete_task(task_id):
 def send_message_to_python_backend(new_task_title):
     python_backend_url = 'http://python-backend-service:5001/send-message'  # Update with the actual Python backend service URL
 
-    # Example of sending a POST request to Python backend
     try:
         response = requests.post(python_backend_url, json={'task_title': new_task_title})
         response.raise_for_status()
