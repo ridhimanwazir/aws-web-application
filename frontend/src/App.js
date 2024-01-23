@@ -49,14 +49,26 @@ function App() {
         />
         <button onClick={createTask}>Add Task</button>
       </div>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            {task.title}
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks.map((task) => (
+            <tr key={task.id}>
+              <td>{task.id}</td>
+              <td>{task.title}</td>
+              <td>
+                <button onClick={() => deleteTask(task.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
