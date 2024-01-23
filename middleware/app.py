@@ -4,7 +4,8 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('TaskManager') 
+table = dynamodb.Table('TaskManager')
+print(table)
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -29,4 +30,4 @@ def delete_task(task_id):
     return jsonify({'message': 'Task deleted successfully'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)
