@@ -12,6 +12,18 @@ logging.basicConfig(level=logging.INFO)
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('TaskManager')
 
+
+def send_message_to_python_backend(new_task_title):
+    python_backend_url = 'http://54.242.33.69:5001/send-message'  # Update with the actual Python backend service URL
+
+    try:
+        response = requests.post(python_backend_url, json={'task_title': new_task_title})
+        response.raise_for_status()
+        print(response.json())
+    except requests.exceptions.RequestException as e:
+        print(f"Error sending message to Python backend: {e}")
+
+
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     logging.info('GET /tasks')
@@ -38,16 +50,6 @@ def delete_task(task_id):
     logging.info(f'DELETE /tasks/{task_id}')
     table.delete_item(Key={'id': task_id})
     return jsonify({'message': 'Task deleted successfully'})
-
-def send_message_to_python_backend(new_task_title):
-    python_backend_url = 'http://54.242.33.69:5001/send-message'  # Update with the actual Python backend service URL
-
-    try:
-        response = requests.post(python_backend_url, json={'task_title': new_task_title})
-        response.raise_for_status()
-        print(response.json())
-    except requests.exceptions.RequestException as e:
-        print(f"Error sending message to Python backend: {e}")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001,debug=True)

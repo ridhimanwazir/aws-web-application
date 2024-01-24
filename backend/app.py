@@ -21,6 +21,7 @@ def send_message():
         sns_client.publish(TopicArn=topic_arn, Message=message)
         return jsonify({'message': 'Message sent successfully'})
     except Exception as e:
+        print(f'Error sending message: {str(e)}')
         return jsonify({'error': f'Error sending message: {str(e)}'}), 500
 
 if __name__ == '__main__':
