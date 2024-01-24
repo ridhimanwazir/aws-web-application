@@ -10,7 +10,7 @@ CORS(app)
 
 logging.basicConfig(level=logging.INFO)
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('TaskManager')
 
 @app.route('/tasks', methods=['GET'])
