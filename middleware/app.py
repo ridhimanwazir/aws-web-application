@@ -50,5 +50,6 @@ def send_message_to_python_backend(new_task_title):
     except requests.exceptions.RequestException as e:
         print(f"Error sending message to Python backend: {e}")
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000,debug=True)
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
