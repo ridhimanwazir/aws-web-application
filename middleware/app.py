@@ -30,7 +30,7 @@ def create_task():
         'title': data['title']
     }
     table.put_item(Item=new_task)
-    send_message_to_python_backend(new_task['title'])
+    #send_message_to_python_backend(new_task['title'])
 
     return jsonify({'message': 'Task created successfully'}), 201
 
