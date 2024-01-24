@@ -52,4 +52,4 @@ def send_message_to_python_backend(new_task_title):
 
 if __name__ == "__main__":
     app.debug = True
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
