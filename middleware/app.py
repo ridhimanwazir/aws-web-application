@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('TaskManager')
 
-@app.route('/tasks', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_tasks():
     logging.info('GET /tasks')
     response = table.scan()
@@ -21,7 +21,7 @@ def get_tasks():
     task_list = [{'id': task['id'], 'title': task['title']} for task in tasks]
     return jsonify({'tasks': task_list})
 
-@app.route('/tasks', methods=['POST'])
+@app.route('/', methods=['POST'])
 def create_task():
     logging.info('POST /tasks')
     data = request.get_json()
@@ -30,13 +30,13 @@ def create_task():
         'title': data['title']
     }
     table.put_item(Item=new_task)
-    #send_message_to_python_backend(new_task['title'])
+    # send_message_to_python_backend(new_task['title'])
 
     return jsonify({'message': 'Task created successfully'}), 201
 
-@app.route('/tasks/<string:task_id>', methods=['DELETE'])
+@app.route('/<string:task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    logging.info(f'DELETE /tasks/{task_id}')
+    logging.info(f'DELETE /{task_id}')
     table.delete_item(Key={'id': task_id})
     return jsonify({'message': 'Task deleted successfully'})
 
