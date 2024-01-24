@@ -40,7 +40,7 @@ def delete_task(task_id):
     return jsonify({'message': 'Task deleted successfully'})
 
 def send_message_to_python_backend(new_task_title):
-    python_backend_url = 'http://python-backend-service:5001/send-message'  # Update with the actual Python backend service URL
+    python_backend_url = 'http://54.242.33.69:5001/send-message'  # Update with the actual Python backend service URL
 
     try:
         response = requests.post(python_backend_url, json={'task_title': new_task_title})
@@ -50,4 +50,4 @@ def send_message_to_python_backend(new_task_title):
         print(f"Error sending message to Python backend: {e}")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000,debug=True)
+    app.run(host='0.0.0.0', port=5001,debug=True)
