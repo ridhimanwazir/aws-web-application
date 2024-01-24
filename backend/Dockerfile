@@ -1,8 +1,7 @@
 # Use the official Python image as the base image
 FROM python:3.10-slim
 
-ENV AWS_ACCESS_KEY_ID=AKIA2DNGKLUMOVOSXAO3
-ENV AWS_SECRET_ACCESS_KEY=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
+
 
 # Set the working directory in the container
 WORKDIR /app
