@@ -12,16 +12,6 @@ logging.basicConfig(level=logging.INFO)
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('TaskManager')
 
-def send_message_to_python_backend(new_task_title):
-    python_backend_url = 'http://54.242.33.69:5001/send-message'  # Update with the actual Python backend service URL
-
-    try:
-        response = requests.post(python_backend_url, json={'task_title': new_task_title})
-        response.raise_for_status()
-        print(response.json())
-    except requests.exceptions.RequestException as e:
-        print(f"Error sending message to Python backend: {e}")
-
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     logging.info('GET /tasks')
@@ -31,6 +21,17 @@ def get_tasks():
     return jsonify({'tasks': task_list})
 
 @app.route('/tasks', methods=['POST'])
+
+def send_message_to_python_backend(new_task_title):
+    python_backend_url = 'http://54.242.33.69:5001/send-message'  # Update with the actual Python backend service URL
+
+    try:
+        response = requests.post(python_backend_url, json={'task_title': new_task_title})
+        response.raise_for_status()
+        print(response.json())
+    except requests.exceptions.RequestException as e:
+        print(f"Error sending message to Python backend: {e}")
+        
 def create_task():
     logging.info('POST /tasks')
     data = request.get_json()
