@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify
 import boto3
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 
 # Initialize the SNS client
 sns_client = boto3.client('sns', region_name='us-east-1') 
