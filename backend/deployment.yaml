@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-sns-backend
+spec:
+  replicas: 2 # Adjust as needed
+  selector:
+    matchLabels:
+      app: python-sns-backend
+  template:
+    metadata:
+      labels:
+        app: python-sns-backend
+    spec:
+      containers:
+      - name: python-sns-backend
+        image: 694522895640.dkr.ecr.us-east-1.amazonaws.com/python-sns-backend:latest
+        ports:
+        - containerPort: 5001 # Adjust to match the port your Flask app is running on

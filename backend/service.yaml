@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-sns-backend
+spec:
+  selector:
+    app: python-sns-backend
+  ports:
+    - protocol: TCP
+      port: 80          # Exposed port on the service
+      targetPort: 5001  # Port on the backend container where the application is running
+  type: LoadBalancer
