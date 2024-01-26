@@ -9,7 +9,7 @@ CORS(app)
 # Initialize the SNS client
 sns_client = boto3.client('sns', region_name='us-east-1') 
 
-@app.route('/send-message', methods=['POST'])
+@app.route('/', methods=['POST'])
 def send_message():
     data = request.get_json()
     new_task_title = data.get('task_title')
