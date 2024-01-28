@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: python-sns-backend
-        image: 694522895640.dkr.ecr.us-east-1.amazonaws.com/python-sns-backend:latest
+        image: public.ecr.aws/r4v6g9w1/python-sns-backend:latest
         ports:
         - containerPort: 5001 # Adjust to match the port your Flask app is running on
