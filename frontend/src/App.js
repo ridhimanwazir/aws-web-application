@@ -25,7 +25,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('https://eb8d-54-146-30-178.ngrok-free.app/');
+      const response = await axios.get('https://a024-54-146-30-178.ngrok-free.app/');
       setTasks(response.data.tasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -34,7 +34,7 @@ function App() {
 
   const createTask = async () => {
     try {
-      await axios.post('https://eb8d-54-146-30-178.ngrok-free.app/', { title: newTaskTitle });
+      await axios.post('https://a024-54-146-30-178.ngrok-free.app/', { title: newTaskTitle });
       setNewTaskTitle('');
       fetchTasks();
     } catch (error) {
@@ -44,7 +44,7 @@ function App() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`https://eb8d-54-146-30-178.ngrok-free.app/${taskId}`);
+      await axios.delete(`https://a024-54-146-30-178.ngrok-free.app/${taskId}`);
       fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error);
