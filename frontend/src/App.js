@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { signIn } from 'aws-amplify/auth';
 import axios from 'axios';
 
 
 function App() {
+  const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   useEffect(() => {
+    checkUser();
     fetchTasks();
   }, []);
 
+  const checkUser = async () => {
+    try {
+      const userData = await signIn.currentAuthenticatedUser();
+      setUser(userData);
+    } catch (err) {
+      setUser(null);
+    }
+  };
+
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('https://eb8d-54-146-30-178.ngrok-free.app/tasks');
+      const response = await axios.get('https://eb8d-54-146-30-178.ngrok-free.app/');
       setTasks(response.data.tasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -21,7 +34,7 @@ function App() {
 
   const createTask = async () => {
     try {
-      await axios.post('https://eb8d-54-146-30-178.ngrok-free.app/tasks', { title: newTaskTitle });
+      await axios.post('https://eb8d-54-146-30-178.ngrok-free.app/', { title: newTaskTitle });
       setNewTaskTitle('');
       fetchTasks();
     } catch (error) {
@@ -31,7 +44,7 @@ function App() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`https://eb8d-54-146-30-178.ngrok-free.app/tasks/${taskId}`);
+      await axios.delete(`https://eb8d-54-146-30-178.ngrok-free.app/${taskId}`);
       fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -73,4 +86,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
