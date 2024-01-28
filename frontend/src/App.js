@@ -12,7 +12,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://middleware.us-east-1.elasticbeanstalk.com:5000/tasks');
+      const response = await axios.get('https://eb8d-54-146-30-178.ngrok-free.app/tasks');
       setTasks(response.data.tasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -21,7 +21,7 @@ function App() {
 
   const createTask = async () => {
     try {
-      await axios.post('http://middleware.us-east-1.elasticbeanstalk.com:5000/tasks', { title: newTaskTitle });
+      await axios.post('https://eb8d-54-146-30-178.ngrok-free.app/tasks', { title: newTaskTitle });
       setNewTaskTitle('');
       fetchTasks();
     } catch (error) {
@@ -31,7 +31,7 @@ function App() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://middleware.us-east-1.elasticbeanstalk.com:5000/tasks/${taskId}`);
+      await axios.delete(`https://eb8d-54-146-30-178.ngrok-free.app/tasks/${taskId}`);
       fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error);
